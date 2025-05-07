@@ -520,6 +520,6 @@ The **training algorithm** itself also plays a regularizing role:
 
 ## References
 
-- Varsha Kishore, Justin Lovelace, Gary Wei, Christy Guan. _Regularization and Data Augmentation_. CS4782: Intro to Deep Learning, Cornell University, 2024. [https://www.cs.cornell.edu/courses/cs4782/2025sp/slides/pdf/week2_2_slides.pdf](https://www.cs.cornell.edu/courses/cs4782/2025sp/slides/pdf/week2_2_slides.pdf)
-- Ian Goodfellow, Yoshua Bengio, Aaron Courville. _Deep Learning_. MIT Press, 2016. [deeplearningbook.org](https://www.deeplearningbook.org/)
-- Kevin P. Murphy. Probabilistic Machine Learning: An Introduction. MIT Press, 2022. [pml-book](https://probml.github.io/pml-book)
+- Varsha Kishore, Justin Lovelace, Gary Wei, Christy Guan. _Regularization and Data Augmentation_. CS4782: Intro to Deep Learning, Cornell University, 2024. https://www.cs.cornell.edu/courses/cs4782/2025sp/slides/pdf/week2_2_slides.pdf
+- Ian Goodfellow, Yoshua Bengio, Aaron Courville. _Deep Learning_. MIT Press, 2016. https://www.deeplearningbook.org/
+- Kevin P. Murphy. Probabilistic Machine Learning: An Introduction. MIT Press, 2022. https://probml.github.io/pml-book
