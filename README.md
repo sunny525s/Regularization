@@ -14,7 +14,7 @@ This leads to the concept of the **bias–variance trade-off**, a fundamental id
   <img src="biasvariance.png" width="500">
 </p>
 
-**Figure 1:** _Variation of Bias and Variance with model complexity; more complex models overfit, while the simplest models underfit_ \[Scott Fortmann, 2012, [https://scott.fortmann-roe.com/docs/BiasVariance.html](https://scott.fortmann-roe.com/docs/BiasVariance.html)]
+**Figure 1:** _Variation of Bias and Variance with model complexity; more complex models overfit, while the simplest models underfit_ \([Scott Fortmann-Roe, 2012](https://scott.fortmann-roe.com/docs/BiasVariance.html))
 
 The expected test error can be decomposed into three components using the classic **bias-variance decomposition**:
 
@@ -31,7 +31,7 @@ A classic illustrative case is **polynomial fitting**. Imagine fitting a high-de
   <img src="modelerror_trainingset.png" width="700">
 </p>
 
-**Figure 2:** _Model Error vs. Training Set Size. Without regularization, the small-data regime model fits training data perfectly but has high test error. With more data or regularization, test error becomes more manageable_ \[Badillo et al., 2020, [https://www.researchgate.net/figure/llustration-of-the-underfitting-overfitting-issue-on-a-simple-regression-case-Data_fig2_339680577](https://www.researchgate.net/figure/llustration-of-the-underfitting-overfitting-issue-on-a-simple-regression-case-Data_fig2_339680577)]
+**Figure 2:** _Model Error vs. Training Set Size. Without regularization, the small-data regime model fits training data perfectly but has high test error. With more data or regularization, test error becomes more manageable_ \([Badillo et al., 2020](https://www.researchgate.net/figure/llustration-of-the-underfitting-overfitting-issue-on-a-simple-regression-case-Data_fig2_339680577))
 
 > **Empirical Risk Minimization (ERM)** focuses solely on minimizing the average loss over the training data:
 >
@@ -48,6 +48,8 @@ A classic illustrative case is **polynomial fitting**. Imagine fitting a high-de
 > where $r(\mathbf{w})$ measures the complexity of the model (e.g., via L1 or L2 norms), and $\lambda$ is a hyperparameter that controls the strength of regularization. This encourages simpler models and helps prevent overfitting.
 
 In deep learning, the bias–variance trade-off doesn’t always behave as expected. Surprisingly, very large models can sometimes achieve low training _and_ low test error—an effect known as **deep double descent** (discussed later). This phenomenon challenges classical assumptions, yet regularization remains a central tool to ensure robust generalization, especially in the small data or high-noise regimes.
+
+With the motivation for regularization established, we now explore specific techniques commonly used in deep learning to reduce overfitting and improve generalization.
 
 ## Section 2: Regularization Techniques in Deep Learning
 
@@ -75,7 +77,7 @@ While these expressions may look similar for SGD, they differ fundamentally in h
   <img src="weight_decay.png" width="600">
 </p>
 
-**Figure 3:** _Weight Decay and L2 Regularization. In L2 regularization, the optimizer treats regularizer just like the loss but in weight decay the regularizer is independent of optimizer's adaptive scaling_ [Loshchilov et al., 2019, https://arxiv.org/pdf/1711.05101]
+**Figure 3:** _Weight Decay and L2 Regularization. In L2 regularization, the optimizer treats regularizer just like the loss but in weight decay the regularizer is independent of optimizer's adaptive scaling_ ([Loshchilov et al., 2019](https://arxiv.org/pdf/1711.05101))
 
 This distinction is especially important for **adaptive optimizers** like Adam. In these optimizers, L2 regularization is subject to the optimizer’s adaptive rescaling (e.g., per-parameter learning rates), while **weight decay** can be applied directly to the weights and is unaffected by such adaptations. As a result, L2 regularization and weight decay yield **different behaviors** in adaptive settings—this is the motivation behind optimizers like **AdamW**, which decouple weight decay from the gradient-based update.
 
@@ -83,7 +85,7 @@ This distinction is especially important for **adaptive optimizers** like Adam. 
   <img src="l1l2.png" width="500">
 </p>
 
-**Figure 4:** _L1 and L2 Regularization_ [Xiaoli C., 2018, https://www.linkedin.com/pulse/intuitive-visual-explanation-differences-between-l1-l2-xiaoli-chen/]
+**Figure 4:** _L1 and L2 Regularization_ ([Xiaoli Chen, 2018](https://www.linkedin.com/pulse/intuitive-visual-explanation-differences-between-l1-l2-xiaoli-chen))
 
 The table below summarizes the optimization problems and corresponding gradient update rules for models trained with no regularization, L1 regularization (Lasso), and L2 regularization (Ridge):
 
@@ -121,7 +123,7 @@ and then multiply the result by 0.5 (the keep probability), ensuring the expecte
   <img src="dropout.png" width="500">
 </p>
 
-**Figure 5:** _Dropout Neural Net Model. Comparing a standard network vs. the same network with random units (connections) dropped. **Left**: Standard Neural Net with 2 hidden layers. **Right**: Thinned net produced by applying dropout to the network._ \[Srivastava et al, 2014, [https://www.cs.toronto.edu/\~rsalakhu/papers/srivastava14a.pdf](https://www.cs.toronto.edu/~rsalakhu/papers/srivastava14a.pdf)]
+**Figure 5:** _Dropout Neural Net Model. Comparing a standard network vs. the same network with random units (connections) dropped. **Left**: Standard Neural Net with 2 hidden layers. **Right**: Thinned net produced by applying dropout to the network._ ([Srivastava et al., 2014](https://www.cs.toronto.edu/~rsalakhu/papers/srivastava14a.pdf))
 
 > Srivastava et al. (2014) introduced dropout and demonstrated significant reduction in **overfitting**, thereby improving **generalization**. For example, in neural nets trained on limited data, dropout yielded much lower test errors than no dropout (see _dropout effectiveness graph_). It’s especially useful in cases with many **parameters** and relatively little data. However, too high a dropout rate can underfit – common values are 0.5 for fully-connected layers and 0.2–0.3 for convolutional layers (where spatial redundancy is high). Always disable dropout when **evaluating/predicting** (it’s a training-time technique only).
 
@@ -129,7 +131,7 @@ and then multiply the result by 0.5 (the keep probability), ensuring the expecte
   <img src="dropout_testerror.png" width="500">
 </p>
 
-**Figure 6:** _Test error of different architectures with and without dropout._ [Srivastava et al, 2014, https://www.cs.toronto.edu/~rsalakhu/papers/srivastava14a.pdf]
+**Figure 6:** _Test error of different architectures with and without dropout._ ([Srivastava et al., 2014](https://www.cs.toronto.edu/~rsalakhu/papers/srivastava14a.pdf))
 
 ---
 
@@ -149,9 +151,7 @@ In practice, early stopping is simple to implement and widely adopted in deep le
   <img src="early_stopping.png" width="400">
 </p>
 
-**Figure 7:** _Early Stopping. Training loss continues to decrease, but validation loss begins to rise, indicating overfitting. Training should be stopped at the point where validation loss is minimized._ [Julien Despois, 2018, https://hackernoon.com/memorizing-is-not-learning-6-tricks-to-prevent-overfitting-in-machine-learning-820b091dc42]
-
----
+**Figure 7:** _Early Stopping. Training loss continues to decrease, but validation loss begins to rise, indicating overfitting. Training should be stopped at the point where validation loss is minimized._ ([Julien Despois, 2018](https://hackernoon.com/memorizing-is-not-learning-6-tricks-to-prevent-overfitting-in-machine-learning-820b091dc42))
 
 ### Other Regularization Strategies
 
@@ -163,9 +163,11 @@ In practice, early stopping is simple to implement and widely adopted in deep le
   <img src="ensemble.png" width="500">
 </p>
 
-**Figure 8:** _Ensemble Methods. Combines predictions from multiple independently trained models to produce a final output, typically through averaging (for regression) or majority voting (for classification)._ [Abdelwahab et al., 2022, https://www.researchgate.net/figure/Ensemble-neural-network-architecture_fig4_361508509]
+**Figure 8:** _Ensemble Methods. Combines predictions from multiple independently trained models to produce a final output, typically through averaging (for regression) or majority voting (for classification)._ ([Abdelwahab et al., 2022](https://www.researchgate.net/figure/Ensemble-neural-network-architecture_fig4_361508509))
 
 - **Data-dependent regularizers:** In some cases, one might add a term to the loss that encodes some prior knowledge, e.g. encouraging smoothness of predictions or penalizing certain complexity in features. These are problem-specific but follow the same principle of constraining the solution space.
+
+While these regularization methods constrain model complexity directly, their effectiveness also depends on how they interact with optimization algorithms like Adam and SGD which we will cover next.
 
 ---
 
@@ -191,13 +193,15 @@ Finally, while AdamW brings adaptive optimizers closer to SGD in terms of genera
   <img src="adam.png" width="500">
 </p>
 
-**Figure 9:** _Adam & AdamW. Learning curves and generalization results for Adam and AdamW ResNet trained on CIFAR-10._ [Loshchilov et al., 2019, https://arxiv.org/pdf/1711.05101]
+**Figure 9:** _Adam & AdamW. Learning curves and generalization results for Adam and AdamW ResNet trained on CIFAR-10._ ([Loshchilov et al., 2019](https://arxiv.org/pdf/1711.05101))
+
+While optimizer choice and training dynamics influence generalization, another powerful axis of regularization lies in the data itself—via data augmentation
 
 ---
 
 ### Data Augmentation
 
-Data augmentation is a technique that enhances the **diversity** of a training dataset by applying **transformations** to existing examples. This method generates new, synthetic samples that preserve the original labels, serving as a powerful form of regularization. In doing so, it reduces overfitting by encouraging the model to generalize across plausible variations of the input data rather than memorizing specifics.
+Data augmentation is a regularization technique that enhances the **diversity** of a training dataset by applying **transformations** to existing examples. This method generates new, synthetic samples that preserve the original labels, serving as a powerful form of regularization. In doing so, it reduces overfitting by encouraging the model to generalize across plausible variations of the input data rather than memorizing specifics.
 
 The motivation behind data augmentation comes from our prior knowledge of task-relevant **invariances**. For instance, flipping an image of a cat horizontally does not change the fact that it is still a cat. By introducing such transformations during training, we explicitly encode these invariances into the model. This forces the network to become invariant to such changes, rather than relying on **spurious** cues present in the original dataset. In this sense, augmented data acts as _free_ additional data that guides more robust learning.
 
@@ -207,7 +211,7 @@ For image data, augmentation typically involves applying **label-preserving** ge
   <img src="dataaug.png" width="600">
 </p>
 
-**Figure 10:** _Data Augmentation._ [Pranjal Ostwal, 2023, https://pranjal-ostwal.medium.com/data-augmentation-for-computer-vision-b88b818b6010]
+**Figure 10:** _Data Augmentation._ ([Pranjal Ostwal, 2023](https://pranjal-ostwal.medium.com/data-augmentation-for-computer-vision-b88b818b6010))
 
 Beyond these standard augmentations, more advanced methods have emerged that blend information from multiple samples. **Mixup**, introduced by Zhang et al. (2017), generates new training examples by linearly **interpolating** between two images and their corresponding labels. Specifically, if $x_i$ and $x_j$ are two images and $y_i$, $y_j$ their labels, then the new sample is defined as:
 
@@ -219,7 +223,7 @@ with $\lambda \in [0, 1]$ sampled from a **beta distribution**. The resulting im
   <img src="mixup.png" width="400">
 </p>
 
-**Figure 11:** _Mixup: Synthesizing new samples by combining two existing data points._ [Zhang et al., 2017, https://arxiv.org/pdf/1710.09412]
+**Figure 11:** _Mixup: Synthesizing new samples by combining two existing data points._ ([Zhang et al., 2017](https://arxiv.org/pdf/1710.09412))
 
 **CutMix** (2019) offers a more **spatially grounded** alternative by cutting a patch from one image and pasting it onto another. The label is then adjusted proportionally based on the area of the patch. This approach helps the model learn from partial evidence and increases robustness to **occlusions**—common in real-world scenarios.
 
@@ -227,7 +231,7 @@ with $\lambda \in [0, 1]$ sampled from a **beta distribution**. The resulting im
   <img src="cutmix.png" width="400">
 </p>
 
-**Figure 12:** _CutMix. Visualizing ‘Saint Bernard’ and ‘Miniature Poodle’ samples using Mixup, Cutout, CutMix Augmentation Techniques._ [Yun et al., 2019, https://arxiv.org/pdf/1905.04899]
+**Figure 12:** _CutMix. Visualizing ‘Saint Bernard’ and ‘Miniature Poodle’ samples using Mixup, Cutout, CutMix Augmentation Techniques._ ([Yun et al., 2019](https://arxiv.org/pdf/1905.04899))
 
 Building on these ideas, automated augmentation strategies like **AutoAugment** and **AugMix** explore combinations of augmentation operations using learned or fixed policies. These techniques further push the boundary by optimizing augmentation pipelines to match the needs of the target task, yielding improved **accuracy** and **robustness** in many state-of-the-art vision models.
 
@@ -241,11 +245,13 @@ The impact of data augmentation is particularly profound in **vision models**. S
 
 > **Steiner et al. (2022)** found that Vision Transformers trained with aggressive augmentation and regularization matched the performance of models trained on datasets an order of magnitude larger. This result highlights the value of leveraging domain-specific transformations to improve **generalization** without increasing data volume. Whenever possible, consider data augmentation not as an optional preprocessing step, but as a **critical** component of modern machine learning workflows.
 
+Alongside data augmentation, which enhances the dataset itself, we now turn to normalization techniques that regularize model behavior during training.
+
 ---
 
 ## Section 3: Normalization Techniques
 
-Normalization layers are another tool that, while primarily intended to stabilize and speed up training, also have a regularization effect. They re-scale and re-center layer inputs to have consistent distributions, which can reduce internal covariate shift and make optimization easier.
+While data augmentation tackles overfitting from the data perspective, normalization methods act within the model architecture to stabilize training and implicitly regularize learning. Normalization layers are tool that, while primarily intended to stabilize and speed up training, also have a regularization effect. They re-scale and re-center layer inputs to have consistent distributions, which can reduce internal covariate shift and make optimization easier.
 
 ---
 
@@ -317,13 +323,13 @@ If a small learning rate is used, the variance of this noise shrinks, and the be
   <img src="batch_norm.png" width="700">
 </p>
 
-**Figure 13:** _Batch Normalization. Larger learning rates yield higher test accuracy for Batch Normalization networks._ [Bjorck et al., 2018, https://arxiv.org/pdf/1806.02375]
+**Figure 13:** _Batch Normalization. Larger learning rates yield higher test accuracy for Batch Normalization networks._ ([Bjorck et al., 2018](https://arxiv.org/pdf/1806.02375))
 
 ---
 
 ### Layer Normalization (LayerNorm)
 
-Layer Normalization is a technique that normalizes the **activations** of a neural network layer **within a single data sample**, rather than across a batch. This approach contrasts with Batch Normalization, which computes statistics over multiple samples in a batch. In LayerNorm, for each input sample, the normalization is applied across the **feature dimensions**, making the method independent of the batch size or composition.
+Layer Normalization is a regularization technique that normalizes the **activations** of a neural network layer **within a single data sample**, rather than across a batch. This approach contrasts with Batch Normalization, which computes statistics over multiple samples in a batch. In LayerNorm, for each input sample, the normalization is applied across the **feature dimensions**, making the method independent of the batch size or composition.
 
 To understand how it works, consider an input vector $h = [h_1, h_2, \ldots, h_d]$ representing the **activations** of a layer for one sample with $d$ features. The **mean** and **variance** are computed as:
 
@@ -367,7 +373,9 @@ In practice, most state-of-the-art architectures rely on BatchNorm in convolutio
   <img src="normalization.png" width="700">
 </p>
 
-**Figure 14:** _Normalization Methods. N is the batch axis, C is the channel axis, and (H, W) are the spatial axes. Blue pixels are normalized by the same mean and variance._ [Wu et al., 2018, https://arxiv.org/pdf/1803.08494]
+**Figure 14:** _Normalization Methods. N is the batch axis, C is the channel axis, and (H, W) are the spatial axes. Blue pixels are normalized by the same mean and variance._ ([Wu et al., 2018](https://arxiv.org/pdf/1803.08494))
+
+Beyond explicit methods like dropout or normalization, deep learning also benefits from implicit forms of regularization that emerge from optimization dynamics and model design.
 
 ---
 
@@ -385,7 +393,7 @@ This leads to the **flat minima** vs. **sharp minima** hypothesis. In deep learn
   <img src="flat_sharp.png" width="600">
 </p>
 
-**Figure 15:** _Flat vs. Sharp Minima. Generalization Capability._ [Keskar et al., 2017, https://arxiv.org/pdf/1609.04836]
+**Figure 15:** _Flat vs. Sharp Minima. Generalization Capability._ ([Keskar et al., 2017](https://arxiv.org/pdf/1609.04836))
 
 This implicit bias also interacts with **over-parameterization**. Modern neural networks often contain more parameters than training samples, which by classical theory should make them prone to overfitting. And indeed, they can fit arbitrary data. But when trained on structured, real-world data using SGD, they often avoid pathological overfitting. The explanation lies in the fact that over-parameterization gives rise to many possible solutions, and the **optimization algorithm** tends to select a subset of these that generalize. This phenomenon—where capacity itself does not guarantee poor generalization—is sometimes referred to as **implicit regularization** through over-parameterization. Formally, this can be described using the **algorithmic regularization** framework:
 
@@ -419,7 +427,7 @@ The **double descent curve** illustrates this clearly. As model complexity incre
   <img src="double_descent.png" width="800">
 </p>
 
-**Figure 16:** _Deep Double Descent. The test error initially follows the classical U-shaped curve as model capacity increases, but then rises again before descending a second time—a phenomenon known as double descent. This illustrates that increasing model size beyond the interpolation threshold can improve generalization, contrary to traditional bias-variance tradeoff intuition._ [Nakkiran et al., 2019, https://arxiv.org/pdf/1912.02292]
+**Figure 16:** _Deep Double Descent. The test error initially follows the classical U-shaped curve as model capacity increases, but then rises again before descending a second time—a phenomenon known as double descent. This illustrates that increasing model size beyond the interpolation threshold can improve generalization, contrary to traditional bias-variance tradeoff intuition._ ([Nakkiran et al., 2019](https://arxiv.org/pdf/1912.02292))
 
 Why it works comes down to the role of **implicit regularization**. Even though these large models are capable of memorizing the training data in many ways, the training dynamics often steer them toward solutions that generalize. In particular, when operating in the **interpolation regime** where the empirical loss $\mathcal{L}(h) \approx 0$, the optimization process effectively becomes:
 
@@ -439,7 +447,7 @@ Consider a simple **example**. With 100 training points, a model with 10 paramet
   <img src="deep_descent_curve.png" width="800">
 </p>
 
-**Figure 17:** _Classical vs. Modern Generalization. Traditional U-shaped test risk curves (left) give way to double descent behavior (right), where test risk decreases again beyond the interpolation threshold in over-parameterized models._ [Beklin et al., 2019, https://www.cs.ubc.ca/labs/lci/mlrg/slides/dl_generalization.pdf]
+**Figure 17:** _Classical vs. Modern Generalization. Traditional U-shaped test risk curves (left) give way to double descent behavior (right), where test risk decreases again beyond the interpolation threshold in over-parameterized models._ ([Belkin et al., 2019](https://www.cs.ubc.ca/labs/lci/mlrg/slides/dl_generalization.pdf))
 
 ---
 
@@ -473,7 +481,7 @@ Certainly! Here's the fixed **note section** using your preferred format and kee
 > \tau: \text{ Max gradient norm}
 > $$
 >
-> **Algorithm 2:** _Gradient Clipping Algorithm_ [Pascanu et al., 2013, https://arxiv.org/pdf/1211.5063]
+> **Algorithm 2:** _Gradient Clipping Algorithm_ [Pascanu et al., 2013, [arxiv](https://arxiv.org/pdf/1211.5063)]
 
 This method retains the **direction** of the gradient while reducing its **magnitude**, acting as a smoother and more stable constraint than per-coordinate capping.
 
@@ -493,7 +501,7 @@ Both techniques can be used together. For instance, in **adversarial training** 
   <img src="gradient-clipping.png" width="550">
 </p>
 
-**Figure 18:** _Gradient Clipping prevents exploding gradients by capping the norm of the gradient vector._ [Pascanu et al., 2013, https://arxiv.org/pdf/1211.5063]
+**Figure 18:** _Gradient Clipping prevents exploding gradients by capping the norm of the gradient vector._ ([Pascanu et al., 2013](https://arxiv.org/pdf/1211.5063))
 
 ---
 
