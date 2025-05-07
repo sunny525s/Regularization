@@ -20,7 +20,7 @@ The expected test error can be decomposed into three components using the classi
 
 $$
 \mathbb E[(y-\hat f(x))^{2}] = \underbrace{\bigl(\mathrm{Bias}[\hat f(x)]\bigr)^{2}}_{\text{Bias}^{2}}
-+ \underbrace{\mathrm{Var}[\hat f(x)]}_{\text{Variance}} + \sigma_{\varepsilon}^{2}\;.
++ \underbrace{\mathrm{Var}[\hat f(x)]}_{\text{Variance}} + \sigma_{\varepsilon}^{2}
 $$
 
 This decomposition highlights a key trade-off: simpler models have high bias and low variance, while more complex models have low bias but high variance. Regularization helps manage this trade-off by deliberately introducing bias to reduce variance, thereby improving generalization.
